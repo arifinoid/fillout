@@ -24,3 +24,351 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes scale-in {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Component layer using Tailwind design tokens */
+@layer components {
+  .page-container {
+    @apply min-h-screen bg-gradient-to-br from-slate-50 via-orange-50 to-pink-50 flex flex-col overflow-hidden;
+  }
+
+  .animated-background {
+    @apply absolute inset-0 overflow-hidden pointer-events-none;
+  }
+
+  .floating-orb {
+    @apply absolute w-96 h-96 rounded-full opacity-20;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .floating-orb-orange {
+    @apply bg-gradient-to-r from-orange-200 to-pink-200;
+  }
+
+  .floating-orb-blue {
+    @apply bg-gradient-to-r from-blue-200 to-purple-200;
+  }
+
+  .floating-orb-green {
+    @apply bg-gradient-to-r from-green-200 to-yellow-200;
+  }
+
+  .main-content {
+    @apply flex-1 flex items-center justify-center p-8 relative z-10;
+  }
+
+  .content-card-container {
+    @apply relative hover:scale-105 transition-transform duration-300;
+  }
+
+  .card-background {
+    @apply absolute inset-0 bg-gradient-to-r from-orange-100 via-pink-100 to-purple-100 rounded-3xl blur-xl opacity-40 scale-110;
+    animation: glow 3s ease-in-out infinite;
+  }
+
+  .card-glass {
+    @apply absolute inset-0 bg-gradient-to-br from-white/60 to-white/30 rounded-3xl backdrop-blur border border-white/40 shadow-2xl;
+    animation: scale-in 0.5s ease-out;
+  }
+
+  .main-card {
+    @apply relative p-16 rounded-3xl bg-white/90 backdrop-blur-xl text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 border border-white/50 shadow-2xl transition-all duration-500 hover:shadow-2xl hover:scale-105;
+  }
+
+  .content-card-container:hover .main-card {
+    @apply bg-white/95;
+  }
+
+  .card-content {
+    @apply flex items-center justify-center gap-6;
+  }
+
+  .animated-dots {
+    @apply flex gap-2;
+  }
+
+  .animated-dot {
+    @apply w-4 h-4 rounded-full;
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  .dot-orange {
+    @apply bg-gradient-to-r from-orange-400 to-pink-500;
+  }
+
+  .dot-pink {
+    @apply bg-gradient-to-r from-pink-500 to-purple-600;
+  }
+
+  .dot-purple {
+    @apply bg-gradient-to-r from-purple-600 to-blue-500;
+  }
+
+  .dot-blue {
+    @apply bg-gradient-to-r from-blue-500 to-green-500;
+  }
+
+  .dot-green {
+    @apply bg-gradient-to-r from-green-500 to-yellow-500;
+  }
+
+  .dot-yellow {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-400;
+  }
+
+  .tab-label-container {
+    @apply relative;
+  }
+
+  .tab-label {
+    @apply relative z-10 text-black;
+    animation: slide-up 0.5s ease-out;
+  }
+
+  .shimmer-effect {
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-lg;
+    animation: shimmer 2s ease-in-out infinite;
+    background-size: 200% 100%;
+  }
+
+  .inner-glow {
+    @apply absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/10 via-pink-500/10 to-purple-600/10 opacity-0 transition-opacity duration-500;
+  }
+
+  .content-card-container:hover .inner-glow {
+    @apply opacity-100;
+  }
+
+  .empty-state {
+    @apply min-h-screen flex items-center justify-center;
+  }
+
+  .empty-state-title {
+    @apply text-4xl font-bold text-center mb-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent;
+  }
+
+  .empty-state-message {
+    @apply text-lg text-gray-600 text-center mb-8;
+  }
+
+  /* Bottom Navigation */
+  .bottom-nav {
+    @apply fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-lg flex justify-center items-center py-6 z-50 border-t border-gray-100/50 shadow-xl before:absolute before:inset-0 before:bg-gradient-to-t before:from-white/80 before:to-transparent before:pointer-events-none;
+  }
+
+  .bottom-nav-content {
+    @apply flex items-center gap-0 relative z-10;
+    animation: slide-up 0.5s ease-out;
+  }
+
+  .bottom-nav-divider {
+    @apply w-8 border-t-2 border-gray-300 border-dashed opacity-60 hover:opacity-100 transition-opacity duration-200;
+  }
+
+  /* Sortable Tab */
+  .sortable-tab {
+    @apply relative cursor-grab active:cursor-grabbing;
+  }
+
+  .sortable-tab-container {
+    @apply flex items-center border transition-all duration-300 rounded-xl;
+  }
+
+  .sortable-tab-container-active {
+    @apply bg-white/95 border-orange-200 shadow-lg backdrop-blur-sm ring-1 ring-orange-100;
+  }
+
+  .sortable-tab-container-inactive {
+    @apply bg-gray-50/80 border-gray-200 backdrop-blur-sm;
+  }
+
+  .sortable-tab-container-hover {
+    @apply hover:shadow-md hover:border-gray-300 hover:bg-white/90 hover:scale-[1.02] transform-gpu;
+  }
+
+  .sortable-tab-container-hover-group {
+    @apply group-hover:scale-[1.02] transform-gpu;
+  }
+
+  .sortable-tab-button {
+    @apply flex items-center gap-3 px-5 py-3 rounded-xl font-semibold text-base outline-none transition-all duration-300;
+  }
+
+  .sortable-tab-button-active {
+    @apply bg-white/90 text-gray-800 shadow-sm;
+  }
+
+  .sortable-tab-button-inactive {
+    @apply bg-transparent text-gray-600;
+  }
+
+  .sortable-tab-button-hover {
+    @apply hover:bg-white/95 focus:bg-white/95 focus:ring-2 focus:ring-orange-200 hover:text-gray-800 hover:scale-[1.01] transform-gpu;
+  }
+
+  .sortable-tab-input {
+    @apply ml-1 px-2 py-1 rounded-lg border border-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-300 text-gray-800 bg-white shadow-sm transition-all duration-200 focus:shadow-lg;
+  }
+
+  .sortable-tab-label {
+    @apply select-none font-medium tracking-wide;
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .sortable-tab-menu-button {
+    @apply p-2 rounded-lg hover:bg-gray-100/80 transition-all duration-200 hover:scale-110 active:scale-95 transform-gpu focus:ring-2 focus:ring-orange-200 focus:outline-none;
+  }
+
+  .sortable-tab-menu-icon {
+    @apply w-4 h-4 text-gray-500 hover:text-gray-700 transition-colors duration-200;
+  }
+
+  .sortable-tab-glow {
+    @apply absolute inset-0 rounded-xl bg-gradient-to-r from-orange-400/10 via-pink-400/10 to-purple-400/10 blur-sm -z-10 opacity-50;
+    animation: glow 3s ease-in-out infinite;
+  }
+
+  /* Tab Context Menu */
+  .context-menu {
+    @apply absolute bottom-[calc(100%+12px)] right-0 border border-gray-200/50 rounded-2xl shadow-xl min-w-[260px] z-50 overflow-hidden bg-white/95 backdrop-blur-lg;
+    animation: scale-in 0.5s ease-out;
+  }
+
+  .context-menu-header {
+    @apply bg-gradient-to-r from-gray-50 to-gray-100/80 px-5 py-4 font-semibold text-gray-800 border-b border-gray-100/50;
+  }
+
+  .context-menu-header-content {
+    @apply flex items-center gap-2;
+  }
+
+  .context-menu-header-dot {
+    @apply w-2 h-2 bg-orange-400 rounded-full;
+  }
+
+  .context-menu-items {
+    @apply py-2;
+  }
+
+  .context-menu-button {
+    @apply w-full px-5 py-3 flex items-center gap-3 cursor-pointer transition-all duration-200;
+  }
+
+  .context-menu-button-primary {
+    @apply hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100/50 text-gray-700 hover:text-blue-700;
+  }
+
+  .context-menu-button-secondary {
+    @apply hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/50 text-gray-700 hover:text-gray-800;
+  }
+
+  .context-menu-button-danger {
+    @apply text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100/50 hover:text-red-700 cursor-pointer;
+  }
+
+  .context-menu-button-disabled {
+    @apply text-gray-400 cursor-not-allowed pointer-events-none;
+  }
+
+  .context-menu-button-text {
+    @apply font-medium;
+  }
+
+  .context-menu-button-icon {
+    @apply w-4 h-4 transition-transform duration-200;
+  }
+
+  .context-menu-button-icon-primary {
+    @apply fill-blue-500 text-blue-500;
+  }
+
+  .context-menu-button-icon-secondary {
+    @apply text-gray-500;
+  }
+
+  .context-menu-button-icon-danger {
+    @apply text-red-600;
+  }
+
+  .context-menu-separator {
+    @apply border-t border-gray-100 my-2 mx-3;
+  }
+
+  /* Add Page Button */
+  .add-page-button-container {
+    @apply w-8 h-8 flex items-center justify-center relative;
+  }
+
+  .add-page-button-divider {
+    @apply w-8 border-t-2 border-gray-300 border-dashed opacity-50 transition-all duration-200;
+  }
+
+  .add-page-button-between {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-orange-400 bg-white text-orange-500 rounded-full w-8 h-8 font-bold text-lg flex items-center justify-center shadow-lg z-10 hover:bg-orange-50 transition-all duration-200 hover:scale-110 active:scale-95 transform-gpu hover:shadow-xl hover:border-orange-500;
+    animation: scale-in 0.5s ease-out;
+  }
+
+  .add-page-button-main {
+    @apply flex items-center gap-3 px-6 py-3 rounded-xl font-semibold text-base outline-none border-2 border-gray-200 bg-white/90 text-gray-700 hover:bg-white hover:border-orange-300 hover:text-orange-600 transition-all duration-300 ml-4 backdrop-blur-sm hover:shadow-lg hover:scale-105 active:scale-95 transform-gpu focus:ring-2 focus:ring-orange-200 focus:outline-none relative overflow-hidden;
+  }
+
+  .add-page-button-background {
+    @apply absolute inset-0 bg-gradient-to-r from-orange-50 to-pink-50 opacity-0 transition-opacity duration-300;
+  }
+
+  .add-page-button-icon {
+    @apply w-5 h-5 text-gray-600 transition-all duration-300 transform-gpu relative z-10;
+  }
+
+  .add-page-button-text {
+    @apply relative z-10 font-medium tracking-wide;
+  }
+
+  /* Tab Icon */
+  .tab-icon {
+    @apply w-5 h-5;
+  }
+
+  .tab-icon-active {
+    @apply text-orange-400;
+  }
+
+  .tab-icon-inactive {
+    @apply text-gray-400;
+  }
+}
